@@ -75,6 +75,7 @@ frugal-tokens/
 │   ├── frugal_conflicts.py               ← conflict solver: one provider per capability
 │   ├── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
 │   └── frugal_setup.py                   ← adaptive lifecycle: recommend/install/disable/uninstall
+├── providers/                            ← bundled provider manifests (e.g. DeepWiki), auto-loaded
 └── docs/
     └── Frugal_Tokens_PRD.md              ← the full enterprise PRD this skill distills
 ```

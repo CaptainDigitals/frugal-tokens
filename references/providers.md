@@ -65,6 +65,23 @@ repository re-exploration dominates the waste map. Skip for small or
 rarely-revisited repos — index maintenance overhead beats the savings.
 Repo: https://github.com/DCS-Hub-DCS/Graphify
 
+### DeepWiki — EXPERIMENTAL (MCP service, data egress)
+
+Auto-generated architecture wikis for GitHub repos (Cognition). Querying a
+~2K-token wiki page about a subsystem is cheap Tier-2 context vs. exploring
+15 files. Ships as a bundled manifest (`providers/deepwiki.json`).
+
+```bash
+claude mcp add -s user -t http deepwiki https://mcp.deepwiki.com/mcp
+# remove: claude mcp remove deepwiki
+```
+
+When it pays off: large *public* repos, onboarding into unfamiliar codebases.
+Hard caveats: **data egress** — repo identity and queries go to a third-party
+cloud, so policy-deny for private/client code; summaries can be stale vs.
+recent commits and are LLM-generated — never trust them for Tier 0/1 decisions
+without verifying against source. Service: https://deepwiki.com
+
 ---
 
 ## Compression Providers (cut ingestion cost)

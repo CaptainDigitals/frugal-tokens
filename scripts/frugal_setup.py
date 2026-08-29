@@ -47,6 +47,12 @@ def is_installable(provider: dict) -> bool:
     return "skill" in provider.get("detect", {}) and bool(provider.get("repo"))
 
 
+def in_lifecycle(provider: dict) -> bool:
+    """Providers surfaced by recommend/state: clonable skills plus
+    MCP-based services (which install via their own `install` command)."""
+    return is_installable(provider) or "mcp" in provider.get("detect", {})
+
+
 # ---------------------------------------------------------------- repo profile
 
 def profile_repo(repo: Path) -> dict:
@@ -205,12 +211,17 @@ def recommend(profile: dict, registry: list, frugal_dir: Path,
     disabled_dir = frugal_dir / "disabled-skills"
     rows = []
     for p in registry:
-        if not is_installable(p):
+        if not in_lifecycle(p):
             continue
         pid = p["id"]
-        skill = p.get("detect", {}).get("skill", pid)
-        installed = (skills_dir / skill).is_dir()
-        disabled = (disabled_dir / skill).is_dir()
+        if "mcp" in p.get("detect", {}):
+            from frugal_providers import detect_installed
+            installed = detect_installed(p)
+            disabled = False
+        else:
+            skill = p.get("detect", {}).get("skill", pid)
+            installed = (skills_dir / skill).is_dir()
+            disabled = (disabled_dir / skill).is_dir()
         level, reason = heuristic(p, profile, installed)
         roi = measured.get(pid)
         # Measured data overrides heuristics — this is the adaptive part.
@@ -267,6 +278,11 @@ def _skill_name(provider: dict) -> str:
 
 def cmd_install(provider: dict, skills_dir: Path, frugal_dir: Path) -> int:
     if not is_installable(provider):
+        if "mcp" in provider.get("detect", {}):
+            print(f"{provider['id']} is an MCP-based service — install with:\n"
+                  f"  {provider['install']}\n"
+                  f"remove with: claude mcp remove {provider['detect']['mcp']}")
+            return 0
         print(f"error: {provider['id']} is not an installable skill provider "
               "(CLI tools install via their own package manager — see "
               "frugal_providers.py status)", file=sys.stderr)

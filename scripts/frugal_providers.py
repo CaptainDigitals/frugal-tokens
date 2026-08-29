@@ -161,20 +161,40 @@ def _skill_installed(skill_id: str) -> bool:
     return False
 
 
+def _mcp_configured(server_name: str) -> bool:
+    """Detect an MCP server by name in project .mcp.json or ~/.claude.json."""
+    for config_path in (Path.cwd() / ".mcp.json", Path.home() / ".claude.json"):
+        if not config_path.is_file():
+            continue
+        try:
+            data = json.loads(config_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        servers = data.get("mcpServers", {})
+        if server_name in servers:
+            return True
+        # ~/.claude.json also nests mcpServers per project
+        for project in data.get("projects", {}).values():
+            if server_name in project.get("mcpServers", {}):
+                return True
+    return False
+
+
 def detect_installed(provider: dict) -> bool:
     detect = provider.get("detect", {})
     if "which" in detect:
         return shutil.which(detect["which"]) is not None
     if "skill" in detect:
         return _skill_installed(detect["skill"])
+    if "mcp" in detect:
+        return _mcp_configured(detect["mcp"])
     if "path" in detect:
         return Path(detect["path"]).expanduser().exists()
     return False
 
 
-def load_custom_manifests(frugal_dir: Path):
+def _load_manifest_dir(custom_dir: Path):
     providers, errors = [], []
-    custom_dir = frugal_dir / "providers"
     if not custom_dir.is_dir():
         return providers, errors
     for manifest_path in sorted(custom_dir.glob("*.json")):
@@ -198,11 +218,18 @@ def load_custom_manifests(frugal_dir: Path):
 
 
 def load_registry(frugal_dir: Path = FRUGAL_DIR):
-    """Built-in providers merged with custom manifests (custom overrides by id)."""
-    custom, errors = load_custom_manifests(frugal_dir)
-    custom_ids = {p["id"] for p in custom}
-    merged = [p for p in BUILTIN_PROVIDERS if p["id"] not in custom_ids] + custom
-    return sorted(merged, key=lambda p: (-p["priority"], p["id"])), errors
+    """Built-ins + bundled manifests (repo providers/) + user manifests
+    (~/.frugal/providers/). Later layers override earlier ones by id."""
+    bundled_dir = Path(__file__).resolve().parent.parent / "providers"
+    bundled, errors = _load_manifest_dir(bundled_dir)
+    custom, custom_errors = _load_manifest_dir(frugal_dir / "providers")
+    errors += custom_errors
+
+    merged = {p["id"]: p for p in BUILTIN_PROVIDERS}
+    for layer in (bundled, custom):
+        for p in layer:
+            merged[p["id"]] = p
+    return sorted(merged.values(), key=lambda p: (-p["priority"], p["id"])), errors
 
 
 def cmd_list(registry, as_json: bool):
