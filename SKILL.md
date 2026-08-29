@@ -131,6 +131,19 @@ another identical attempt.
 
 Details: [references/budget-and-loop-guard.md](references/budget-and-loop-guard.md)
 
+## Optional Providers & Guided Setup
+
+The core skill needs no dependencies. When the workload justifies it, vetted
+open-source providers (ast-grep, LSP servers, Graphify, token-compact,
+token-saver) can amplify it — catalog with install commands, trust classes, and
+conflict rules: [references/providers.md](references/providers.md)
+
+When the user asks to "set up frugal tokens" or install optimizers, follow the
+transactional flow (assess → baseline → recommend → backup → apply → verify,
+one provider at a time, rollback on failure):
+[references/setup-flow.md](references/setup-flow.md). Never install or modify
+configuration without explicit approval.
+
 ## Output Frugality
 
 - Answer first, justify briefly. No restating the question, no summarizing what

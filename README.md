@@ -66,9 +66,14 @@ frugal-tokens/
 │   ├── model-routing.md                  ← complexity ladder, subagent delegation rules
 │   ├── checkpoints-and-compaction.md     ← token pressure levels, semantic checkpoints
 │   ├── cache-discipline.md               ← prompt layering, fixed context tax audit
-│   └── budget-and-loop-guard.md          ← loop breaker, escalation budgets
-├── scripts/
-│   └── estimate_tokens.py                ← cost-preview a file/dir before reading it
+│   ├── budget-and-loop-guard.md          ← loop breaker, escalation budgets
+│   ├── providers.md                      ← vetted open-source optimizers + install commands
+│   └── setup-flow.md                     ← guided transactional provider setup
+├── scripts/                              ← stdlib-only Python runtime, no dependencies
+│   ├── estimate_tokens.py                ← cost-preview a file/dir before reading it
+│   ├── frugal_providers.py               ← provider framework: registry, trust, detection
+│   ├── frugal_conflicts.py               ← conflict solver: one provider per capability
+│   └── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
 └── docs/
     └── Frugal_Tokens_PRD.md              ← the full enterprise PRD this skill distills
 ```
@@ -132,6 +137,47 @@ python scripts/estimate_tokens.py src/ --top 10
 ----------------------------------------
      104,271  TOTAL across 87 files
 ```
+
+## Optional Providers & Runtime
+
+The core skill has zero dependencies. When the workload justifies it, vetted
+open-source providers (ast-grep, LSP servers, [Graphify](https://github.com/DCS-Hub-DCS/Graphify),
+[token-compact](https://github.com/theosib/token-compact),
+[token-saver](https://github.com/bryanvine/token-saver)) can amplify it. The
+provider framework is executable:
+
+```bash
+# what's installed, with install hints for what's missing
+python scripts/frugal_providers.py status
+
+# validate a proposed active set — one provider per exclusive capability,
+# explicit conflicts resolved by priority, requirements checked
+python scripts/frugal_conflicts.py --enable ast-grep graphify token-compact
+
+# record real task economics, then prove (or disprove) the savings
+python scripts/frugal_roi.py record --phase baseline --task "fix auth race" \
+    --input-tokens 82000 --output-tokens 9000 --cache-read 22000 \
+    --cost 1.84 --retries 1 --success
+python scripts/frugal_roi.py report
+```
+
+```text
+ASSESSMENT
+  verdict             EXCELLENT
+  cost improvement    43.5%
+  efficiency          1.77x
+  retry increase      -0.5
+  quality loss        0.0%
+```
+
+The ROI report applies the acceptance rule from the PRD: an optimization stays
+only if cost improves ≥ 10% **and** retries increase ≤ 5% **and** quality loss
+stays ≤ 3%. Providers that don't earn their place get flagged for removal.
+
+Ask Claude to *"set up frugal tokens providers"* and it follows the guided,
+transactional flow in [references/setup-flow.md](references/setup-flow.md):
+assess → baseline → recommend → backup → apply one at a time → verify ROI,
+with rollback on any failure. Nothing is installed without your approval.
 
 ## What This Is (and Isn't)
 
