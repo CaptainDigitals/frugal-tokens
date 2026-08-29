@@ -55,7 +55,15 @@ Tool output flooding          verbose test/build commands in hooks
 
 ## Stage 3 — Recommend
 
-Map waste to providers (see providers.md), respecting workload fit:
+Run the adaptive recommender first — it profiles the repo and overlays any
+measured ROI data:
+
+```bash
+python scripts/frugal_setup.py recommend
+```
+
+Then sanity-check its output against the waste map (see providers.md),
+respecting workload fit:
 
 | Signal | Recommendation |
 |---|---|
@@ -120,9 +128,14 @@ regardless (model-routing.md downgrade protection).
 If anything degrades after setup — quality drops, sessions misbehave, costs
 rise:
 
-1. Disable the most recently added provider first (reverse chronological).
+1. Disable the most recently added provider first (reverse chronological):
+   `python scripts/frugal_setup.py disable <id>` — reversible, takes effect
+   next session (`enable <id>` brings it back).
 2. Restore configs from `~/.frugal/backups/` if files were modified.
-3. Fall back to core skill only — it has no dependencies and cannot break.
+3. Uninstall providers that measured REJECTED in the ROI report:
+   `python scripts/frugal_setup.py uninstall <id>` (recoverable backup;
+   `--purge` to delete permanently).
+4. Fall back to core skill only — it has no dependencies and cannot break.
 
 Native Claude Code behavior must always remain reachable. No provider is ever a
 single point of failure.

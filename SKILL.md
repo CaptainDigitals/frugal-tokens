@@ -138,11 +138,27 @@ open-source providers (ast-grep, LSP servers, Graphify, token-compact,
 token-saver) can amplify it — catalog with install commands, trust classes, and
 conflict rules: [references/providers.md](references/providers.md)
 
-When the user asks to "set up frugal tokens" or install optimizers, follow the
-transactional flow (assess → baseline → recommend → backup → apply → verify,
-one provider at a time, rollback on failure):
-[references/setup-flow.md](references/setup-flow.md). Never install or modify
-configuration without explicit approval.
+The lifecycle is adaptive and runs from `scripts/`:
+
+```bash
+python scripts/frugal_setup.py recommend    # profile repo → install/skip/remove advice
+python scripts/frugal_setup.py install <id>
+python scripts/frugal_setup.py disable <id> # park for future sessions, reversible
+python scripts/frugal_setup.py enable <id>
+python scripts/frugal_setup.py uninstall <id>
+```
+
+Run `recommend` when the user asks about optimization tooling, when entering a
+large unfamiliar repo, or when the ROI ledger shows a provider underperforming.
+Recommendations adapt: measured ROI data overrides heuristics — a provider
+that measured REJECTED is flagged for disable/uninstall; one that measured
+PROVEN is kept regardless of repo-size heuristics. Offer the install/disable
+command to the user; run it only with their approval, per the transactional
+flow in [references/setup-flow.md](references/setup-flow.md).
+
+New third-party optimizers are added by dropping a JSON manifest into
+`~/.frugal/providers/` — routing, conflict solving, recommendations, lifecycle,
+and ROI measurement all pick them up automatically with no code changes.
 
 ## Output Frugality
 

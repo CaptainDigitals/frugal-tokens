@@ -114,14 +114,35 @@ The framework is executable, not just documented (stdlib-only Python):
 
 ```bash
 python scripts/frugal_providers.py status          # what's installed, install hints
+python scripts/frugal_setup.py recommend           # repo profile → adaptive advice
+python scripts/frugal_setup.py install <id>        # clone into skills dir
+python scripts/frugal_setup.py disable <id>        # park it (skipped next session)
+python scripts/frugal_setup.py enable <id>         # bring it back
+python scripts/frugal_setup.py uninstall <id>      # remove (recoverable backup)
 python scripts/frugal_conflicts.py --enable a b c  # validate an active set
 python scripts/frugal_roi.py report                # baseline vs optimized economics
 ```
 
-Custom providers register by dropping a JSON manifest into
+## Adding New Providers — No Code Changes
+
+New third-party optimizers register by dropping a JSON manifest into
 `~/.frugal/providers/<id>.json` (same shape as
 `frugal_providers.py manifest <id>` output — id, trust, capabilities,
-priority, conflicts, requires, detect, fixed_context_tax_tokens).
+priority, conflicts, requires, detect, repo, fixed_context_tax_tokens).
+
+Everything picks the new provider up automatically:
+
+- **recommendations** are keyed by *capability*, not provider id — a manifest
+  declaring `navigation.graph` inherits the large-repo heuristic, one
+  declaring `compression.document` inherits the docs heuristic, and
+  `compression.output`/`request_proxy` inherit the default-deny rule. A
+  manifest can pin its own verdict with `"default_recommendation"` +
+  `"recommendation_reason"`.
+- **conflict solving** applies the exclusive-capability and priority rules.
+- **install/disable/uninstall lifecycle** works for any manifest with a
+  `detect.skill` and a `repo` URL.
+- **ROI measurement** applies as soon as tasks are recorded with the new id in
+  `--providers` — and its measured verdict then overrides the heuristics.
 
 ## Conflict Rules
 

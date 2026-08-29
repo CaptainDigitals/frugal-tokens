@@ -73,7 +73,8 @@ frugal-tokens/
 │   ├── estimate_tokens.py                ← cost-preview a file/dir before reading it
 │   ├── frugal_providers.py               ← provider framework: registry, trust, detection
 │   ├── frugal_conflicts.py               ← conflict solver: one provider per capability
-│   └── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
+│   ├── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
+│   └── frugal_setup.py                   ← adaptive lifecycle: recommend/install/disable/uninstall
 └── docs/
     └── Frugal_Tokens_PRD.md              ← the full enterprise PRD this skill distills
 ```
@@ -173,6 +174,38 @@ ASSESSMENT
 The ROI report applies the acceptance rule from the PRD: an optimization stays
 only if cost improves ≥ 10% **and** retries increase ≤ 5% **and** quality loss
 stays ≤ 3%. Providers that don't earn their place get flagged for removal.
+
+### Adaptive Install / Disable / Uninstall
+
+The recommender profiles your actual repository and adapts over time — measured
+ROI overrides heuristics, so a provider that proves itself stays and one that
+underperforms gets flagged for removal:
+
+```bash
+python scripts/frugal_setup.py recommend      # profile repo → per-provider advice
+python scripts/frugal_setup.py install graphify
+python scripts/frugal_setup.py disable token-compact   # parked, skipped next session
+python scripts/frugal_setup.py enable token-compact    # back for the next session
+python scripts/frugal_setup.py uninstall token-saver   # recoverable backup (--purge to delete)
+python scripts/frugal_setup.py state
+```
+
+```text
+  graphify  [COMMUNITY, not installed]
+    RECOMMENDED — large codebase (~426,930 code tokens) — graph navigation
+    beats repeated raw exploration
+
+  token-compact  [COMMUNITY, not installed]
+    NOT_RECOMMENDED — few docs — nothing to compress; its fixed context tax
+    would be pure cost
+```
+
+**New optimizers plug in with zero code changes**: drop a JSON manifest into
+`~/.frugal/providers/<id>.json` declaring its capabilities, and routing,
+conflict solving, workload recommendations, the install lifecycle, and ROI
+measurement all pick it up automatically — recommendation intelligence is
+keyed by capability (`navigation.graph`, `compression.document`, …), not by
+hardcoded provider ids.
 
 Ask Claude to *"set up frugal tokens providers"* and it follows the guided,
 transactional flow in [references/setup-flow.md](references/setup-flow.md):
