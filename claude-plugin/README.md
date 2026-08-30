@@ -11,7 +11,7 @@ source, no account, no cloud. See the
 | **Hooks** | Every tool call is fingerprinted into a local SQLite ledger (`~/.frugal/frugal.db`); identical repeated calls are flagged as duplicates; `PreCompact` writes an automatic semantic checkpoint before Claude compacts |
 | **Status line** | `◈ FRUGAL │ CTX 43% │ $1.42 │ dup 3 │ SHADOW ✓` — context %, session cost, duplicate count, profile, budget health (`✓`/`!`/`X`) |
 | **Commands** | `/frugal-tokens:setup`, `:stats`, `:dashboard`, `:doctor`, `:checkpoint`, `:budget`, `:report`, `:why`, `:safe` |
-| **Skill** | The full frugal-tokens discipline (context tiering, cheap-first navigation, output firewall, model routing, provider framework) is bundled under `skills/` |
+| **Companion skill** | The behavioral discipline (context tiering, cheap-first navigation, output firewall, model routing) lives separately in [`../skill/`](../skill) — install it alongside the plugin for the full experience |
 | **Runtime** | Two interchangeable implementations sharing one ledger: `bin/frugal.py` (stdlib Python, zero build) and the **Rust core** (`frugal` binary from `crates/` — adds the Ratatui TUI and the MCP server) |
 | **MCP server** | `frugal mcp` — 11 tools (`frugal_get_stats`, `frugal_get_cost`, `frugal_get_waste`, `frugal_checkpoint`, `frugal_set_budget`, ...) giving Claude structured access to Frugal Core |
 | **TUI** | `frugal` / `frugal dashboard` — live Ratatui dashboard: Overview, Tools, Budget, Providers, Checkpoints, Audit |

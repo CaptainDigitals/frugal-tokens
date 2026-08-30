@@ -8,7 +8,7 @@
 
 *Less context. Fewer wasted calls. Lower AI spend. Same engineering quality.*
 
-[![Skill](https://img.shields.io/badge/Claude_Code-Skill-d97757?style=flat-square)](SKILL.md)
+[![Skill](https://img.shields.io/badge/Claude_Code-Skill-d97757?style=flat-square)](skill/SKILL.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f?style=flat-square)](LICENSE)
 [![Overview](https://img.shields.io/badge/Docs-Product_Overview-4a7bd0?style=flat-square)](docs/OVERVIEW.md)
 
@@ -57,25 +57,30 @@ The skill installs seven always-on disciplines:
 
 The skill uses **progressive disclosure** — it practices what it preaches:
 
+The repository holds two cleanly separated components — the **skill** (the
+behavioral discipline) and the **plugin** (the measurement runtime). The
+skill points to the plugin for telemetry; each installs independently.
+
 ```text
 frugal-tokens/
-├── SKILL.md                              ← always loaded: the 7 disciplines (compact)
-├── references/                           ← loaded only when the situation demands it
-│   ├── context-tiers.md                  ← CVS formula, tier policies, diff-first context
-│   ├── tool-output-firewall.md           ← per-tool filtering recipes (pytest, tsc, docker…)
-│   ├── model-routing.md                  ← complexity ladder, subagent delegation rules
-│   ├── checkpoints-and-compaction.md     ← token pressure levels, semantic checkpoints
-│   ├── cache-discipline.md               ← prompt layering, fixed context tax audit
-│   ├── budget-and-loop-guard.md          ← loop breaker, escalation budgets
-│   ├── providers.md                      ← vetted open-source optimizers + install commands
-│   └── setup-flow.md                     ← guided transactional provider setup
-├── scripts/                              ← stdlib-only Python runtime, no dependencies
-│   ├── estimate_tokens.py                ← cost-preview a file/dir before reading it
-│   ├── frugal_providers.py               ← provider framework: registry, trust, detection
-│   ├── frugal_conflicts.py               ← conflict solver: one provider per capability
-│   ├── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
-│   └── frugal_setup.py                   ← adaptive lifecycle: recommend/install/disable/uninstall
-├── providers/                            ← bundled provider manifests (e.g. DeepWiki), auto-loaded
+├── skill/                                ← THE SKILL — behavioral layer
+│   ├── SKILL.md                          ← always loaded: the 7 disciplines (compact)
+│   ├── references/                       ← loaded only when the situation demands it
+│   │   ├── context-tiers.md              ← CVS formula, tier policies, diff-first context
+│   │   ├── tool-output-firewall.md       ← per-tool filtering recipes (pytest, tsc, docker…)
+│   │   ├── model-routing.md              ← complexity ladder, subagent delegation rules
+│   │   ├── checkpoints-and-compaction.md ← token pressure levels, semantic checkpoints
+│   │   ├── cache-discipline.md           ← prompt layering, fixed context tax audit
+│   │   ├── budget-and-loop-guard.md      ← loop breaker, escalation budgets
+│   │   ├── providers.md                  ← vetted open-source optimizers + install commands
+│   │   └── setup-flow.md                 ← guided transactional provider setup
+│   ├── scripts/                          ← stdlib-only Python: providers, conflicts, ROI, setup
+│   └── providers/                        ← bundled provider manifests (e.g. DeepWiki)
+├── claude-plugin/                        ← THE PLUGIN — measurement layer
+│   ├── commands/                         ← /frugal-tokens:* commands
+│   ├── hooks/                            ← telemetry + PreCompact auto-checkpoint
+│   ├── bin/frugal.py                     ← Python reference runtime
+│   └── .mcp.json                         ← registers the `frugal mcp` server
 ├── crates/                               ← Rust workspace: Frugal Core native runtime
 │   ├── frugal-storage/                   ← SQLite data plane (schema shared with Python runtime)
 │   ├── frugal-policy/                    ← profiles + budgets (config.json)
@@ -96,13 +101,16 @@ context pressure pulls the checkpoint protocol.
 
 ## Install
 
-### Option A — Plugin (Community Edition, recommended)
+Skill and plugin are independent — install one or both. Together they cover
+discipline (skill) and measurement (plugin).
 
-The full experience: the skill **plus** local telemetry, a cost/context status
-line, duplicate-read detection, budgets, auto-checkpoints before compaction,
-a terminal dashboard, and `/frugal-tokens:*` commands. Local-first — no
-account, no cloud. See [claude-plugin/README.md](claude-plugin/README.md) and
-the [Product Overview](docs/OVERVIEW.md).
+### The plugin (measurement layer)
+
+Local telemetry, a cost/context status line, duplicate-read detection,
+budgets, auto-checkpoints before compaction, a terminal dashboard, and
+`/frugal-tokens:*` commands. Local-first — no account, no cloud. See
+[claude-plugin/README.md](claude-plugin/README.md) and the
+[Product Overview](docs/OVERVIEW.md).
 
 ```text
 /plugin marketplace add CaptainDigitals/frugal-tokens
@@ -116,27 +124,22 @@ Starts in **SHADOW mode**: observe-only until you opt into more.
 ◈ FRUGAL │ CTX 43% │ $1.42 │ dup 3 │ SHADOW ✓
 ```
 
-### Option B — Skill only
+### The skill (behavioral layer)
 
-Clone into your Claude Code skills directory:
+Copy the `skill/` directory into your Claude Code skills directory:
 
 ```bash
-git clone https://github.com/CaptainDigitals/frugal-tokens.git ~/.claude/skills/frugal-tokens
+git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokens.git /tmp/frugal-tokens && cp -r /tmp/frugal-tokens/skill ~/.claude/skills/frugal-tokens && rm -rf /tmp/frugal-tokens
 ```
 
 Windows (PowerShell):
 
 ```powershell
-git clone https://github.com/CaptainDigitals/frugal-tokens.git "$env:USERPROFILE\.claude\skills\frugal-tokens"
+git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokens.git "$env:TEMP\frugal-tokens"; Copy-Item -Recurse "$env:TEMP\frugal-tokens\skill" "$env:USERPROFILE\.claude\skills\frugal-tokens"; Remove-Item -Recurse -Force "$env:TEMP\frugal-tokens"
 ```
 
-Or install for a single project instead:
-
-```bash
-git clone https://github.com/CaptainDigitals/frugal-tokens.git .claude/skills/frugal-tokens
-```
-
-That's it — the skill is discovered automatically and applies to every session.
+For a single project, copy to `.claude/skills/frugal-tokens` instead. The
+skill is discovered automatically and applies to every session.
 
 ## How To Use
 
@@ -160,7 +163,7 @@ You can also lean on it explicitly:
 Cost-preview a directory before letting any of it into context:
 
 ```bash
-python scripts/estimate_tokens.py src/ --top 10
+python skill/scripts/estimate_tokens.py src/ --top 10
 ```
 
 ```text
@@ -182,17 +185,17 @@ provider framework is executable:
 
 ```bash
 # what's installed, with install hints for what's missing
-python scripts/frugal_providers.py status
+python skill/scripts/frugal_providers.py status
 
 # validate a proposed active set — one provider per exclusive capability,
 # explicit conflicts resolved by priority, requirements checked
-python scripts/frugal_conflicts.py --enable ast-grep graphify token-compact
+python skill/scripts/frugal_conflicts.py --enable ast-grep graphify token-compact
 
 # record real task economics, then prove (or disprove) the savings
-python scripts/frugal_roi.py record --phase baseline --task "fix auth race" \
+python skill/scripts/frugal_roi.py record --phase baseline --task "fix auth race" \
     --input-tokens 82000 --output-tokens 9000 --cache-read 22000 \
     --cost 1.84 --retries 1 --success
-python scripts/frugal_roi.py report
+python skill/scripts/frugal_roi.py report
 ```
 
 ```text
@@ -215,12 +218,12 @@ ROI overrides heuristics, so a provider that proves itself stays and one that
 underperforms gets flagged for removal:
 
 ```bash
-python scripts/frugal_setup.py recommend      # profile repo → per-provider advice
-python scripts/frugal_setup.py install graphify
-python scripts/frugal_setup.py disable token-compact   # parked, skipped next session
-python scripts/frugal_setup.py enable token-compact    # back for the next session
-python scripts/frugal_setup.py uninstall token-saver   # recoverable backup (--purge to delete)
-python scripts/frugal_setup.py state
+python skill/scripts/frugal_setup.py recommend      # profile repo → per-provider advice
+python skill/scripts/frugal_setup.py install graphify
+python skill/scripts/frugal_setup.py disable token-compact   # parked, skipped next session
+python skill/scripts/frugal_setup.py enable token-compact    # back for the next session
+python skill/scripts/frugal_setup.py uninstall token-saver   # recoverable backup (--purge to delete)
+python skill/scripts/frugal_setup.py state
 ```
 
 ```text
@@ -241,7 +244,7 @@ keyed by capability (`navigation.graph`, `compression.document`, …), not by
 hardcoded provider ids.
 
 Ask Claude to *"set up frugal tokens providers"* and it follows the guided,
-transactional flow in [references/setup-flow.md](references/setup-flow.md):
+transactional flow in [skill/references/setup-flow.md](skill/references/setup-flow.md):
 assess → baseline → recommend → backup → apply one at a time → verify ROI,
 with rollback on any failure. Nothing is installed without your approval.
 

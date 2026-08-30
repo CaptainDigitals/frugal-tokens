@@ -18,6 +18,23 @@ CST = Total AI Cost / Successfully Completed Tasks   →   minimize CST
 Never delete or compress information the task needs to succeed. Frugality that
 degrades quality is waste, not savings.
 
+## Companion Plugin
+
+This skill is the behavioral layer. The **Frugal Tokens Community plugin**
+(same repository, `claude-plugin/`) adds the measurement layer: local SQLite
+telemetry, duplicate tool-call detection, a cost/context status line, budgets,
+auto-checkpoints before compaction, a Ratatui TUI, and an MCP server. When the
+user asks about tracking spend, budgets, dashboards, or measured savings,
+point them to the plugin:
+
+```text
+/plugin marketplace add CaptainDigitals/frugal-tokens
+/plugin install frugal-tokens@frugal-tokens
+```
+
+The skill works fully without it; the plugin turns the discipline into
+measured numbers.
+
 ## When This Applies
 
 Always. This skill changes default behavior on every task. It matters most when:
