@@ -12,7 +12,9 @@ source, no account, no cloud. Full product spec:
 | **Status line** | `◈ FRUGAL │ CTX 43% │ $1.42 │ dup 3 │ SHADOW ✓` — context %, session cost, duplicate count, profile, budget health (`✓`/`!`/`X`) |
 | **Commands** | `/frugal-tokens:setup`, `:stats`, `:dashboard`, `:doctor`, `:checkpoint`, `:budget`, `:report`, `:why`, `:safe` |
 | **Skill** | The full frugal-tokens discipline (context tiering, cheap-first navigation, output firewall, model routing, provider framework) is bundled under `skills/` |
-| **Runtime** | `bin/frugal.py` — stdlib-only Python, the v0.1 reference implementation of Frugal Core (the Rust workspace is the v1.0 target per the PRD) |
+| **Runtime** | Two interchangeable implementations sharing one ledger: `bin/frugal.py` (stdlib Python, zero build) and the **Rust core** (`frugal` binary from `crates/` — adds the Ratatui TUI and the MCP server) |
+| **MCP server** | `frugal mcp` — 11 tools (`frugal_get_stats`, `frugal_get_cost`, `frugal_get_waste`, `frugal_checkpoint`, `frugal_set_budget`, ...) giving Claude structured access to Frugal Core |
+| **TUI** | `frugal` / `frugal dashboard` — live Ratatui dashboard: Overview, Tools, Budget, Providers, Checkpoints, Audit |
 
 ## Install
 
@@ -31,13 +33,39 @@ Setup verifies the runtime, offers to wire the status line, and lets you pick
 a profile and budgets. **Default profile is SHADOW: observe-only.** Frugal
 measures and reports; it changes nothing until you opt in.
 
-## CLI
+## Rust Core (TUI + MCP)
 
-The runtime also works standalone:
+Build the native runtime from the repo root (or grab a
+[release binary](https://github.com/CaptainDigitals/frugal-tokens/releases)):
+
+```bash
+cargo build --release        # -> target/release/frugal
+```
+
+```bash
+frugal                       # interactive Ratatui dashboard (Overview/Tools/
+                             # Budget/Providers/Checkpoints/Audit; ←/→, r, ?, q)
+frugal stats                 # session economics + health score
+frugal mcp                   # MCP server over stdio (11 frugal_* tools)
+frugal report month
+frugal budget set session 10
+frugal checkpoint "before refactor"
+frugal providers             # registry + install status
+frugal doctor
+frugal safe                  # observe-only, zero intervention
+```
+
+The binary is a drop-in superset of the Python runtime — same
+`~/.frugal/frugal.db`, same `config.json`, same hook/statusline stdin
+contracts. With `frugal` on PATH, the plugin's `.mcp.json` registers the MCP
+server automatically; without it, Claude Code simply shows the server as
+unavailable (fail-open).
+
+## Python CLI (no build required)
 
 ```bash
 python bin/frugal.py stats        # current session economics
-python bin/frugal.py dashboard    # terminal dashboard
+python bin/frugal.py dashboard    # terminal dashboard snapshot
 python bin/frugal.py report month
 python bin/frugal.py budget set session 10
 python bin/frugal.py checkpoint "before refactor"

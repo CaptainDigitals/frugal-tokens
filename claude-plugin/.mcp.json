@@ -1,0 +1,6 @@
+{
+  "frugal": {
+    "command": "frugal",
+    "args": ["mcp"]
+  }
+}

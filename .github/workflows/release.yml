@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            asset: frugal-linux-x64
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            asset: frugal-linux-arm64
+            cross: true
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            asset: frugal-macos-x64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            asset: frugal-macos-arm64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            asset: frugal-windows-x64.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: Install cross linker (linux arm64)
+        if: matrix.cross
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+          echo 'CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc' >> "$GITHUB_ENV"
+      - name: Build
+        run: cargo build --release --target ${{ matrix.target }}
+      - name: Stage asset (unix)
+        if: runner.os != 'Windows'
+        run: cp "target/${{ matrix.target }}/release/frugal" "${{ matrix.asset }}"
+      - name: Stage asset (windows)
+        if: runner.os == 'Windows'
+        run: copy "target\${{ matrix.target }}\release\frugal.exe" "${{ matrix.asset }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - name: Checksums
+        run: sha256sum frugal-* > checksums.txt
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            frugal-*
+            checksums.txt
+          generate_release_notes: true

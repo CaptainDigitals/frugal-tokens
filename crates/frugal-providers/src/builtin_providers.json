@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ripgrep",
+    "name": "ripgrep",
+    "trust": "VERIFIED",
+    "capabilities": ["navigation.grep"],
+    "priority": 100,
+    "detect": { "which": "rg" },
+    "install": "built into Claude Code (Grep tool)",
+    "repo": "https://github.com/BurntSushi/ripgrep",
+    "fixed_context_tax_tokens": 0
+  },
+  {
+    "id": "ast-grep",
+    "name": "ast-grep",
+    "trust": "VERIFIED",
+    "capabilities": ["navigation.ast"],
+    "priority": 90,
+    "detect": { "which": "ast-grep" },
+    "install": "cargo install ast-grep --locked",
+    "repo": "https://github.com/ast-grep/ast-grep",
+    "fixed_context_tax_tokens": 0
+  },
+  {
+    "id": "graphify",
+    "name": "Graphify",
+    "trust": "COMMUNITY",
+    "capabilities": ["navigation.graph", "memory.repository"],
+    "priority": 70,
+    "detect": { "skill": "graphify" },
+    "install": "git clone https://github.com/DCS-Hub-DCS/Graphify ~/.claude/skills/graphify",
+    "repo": "https://github.com/DCS-Hub-DCS/Graphify",
+    "fixed_context_tax_tokens": 400
+  },
+  {
+    "id": "token-compact",
+    "name": "token-compact",
+    "trust": "COMMUNITY",
+    "capabilities": ["compression.document"],
+    "priority": 60,
+    "detect": { "skill": "token-compact" },
+    "install": "git clone https://github.com/theosib/token-compact ~/.claude/skills/token-compact",
+    "repo": "https://github.com/theosib/token-compact",
+    "fixed_context_tax_tokens": 300
+  },
+  {
+    "id": "token-saver",
+    "name": "token-saver",
+    "trust": "COMMUNITY",
+    "capabilities": ["measurement.billing_audit", "routing.subagent"],
+    "priority": 60,
+    "detect": { "skill": "token-saver" },
+    "install": "git clone https://github.com/bryanvine/token-saver ~/.claude/skills/token-saver",
+    "repo": "https://github.com/bryanvine/token-saver",
+    "fixed_context_tax_tokens": 300
+  },
+  {
+    "id": "deepwiki",
+    "name": "DeepWiki (Cognition)",
+    "trust": "EXPERIMENTAL",
+    "capabilities": ["navigation.summary"],
+    "priority": 55,
+    "detect": { "mcp": "deepwiki" },
+    "install": "claude mcp add -s user -t http deepwiki https://mcp.deepwiki.com/mcp",
+    "repo": "https://deepwiki.com",
+    "fixed_context_tax_tokens": 600
+  }
+]

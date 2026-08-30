@@ -1,0 +1,11 @@
+[package]
+name = "frugal-policy"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+frugal-storage = { path = "../frugal-storage" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }

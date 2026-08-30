@@ -1,0 +1,10 @@
+[package]
+name = "frugal-telemetry"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+frugal-storage = { path = "../frugal-storage" }
+rusqlite = { workspace = true }
+anyhow = { workspace = true }

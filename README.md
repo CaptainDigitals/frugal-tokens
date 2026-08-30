@@ -76,6 +76,16 @@ frugal-tokens/
 │   ├── frugal_roi.py                     ← ROI engine: baseline vs optimized CST
 │   └── frugal_setup.py                   ← adaptive lifecycle: recommend/install/disable/uninstall
 ├── providers/                            ← bundled provider manifests (e.g. DeepWiki), auto-loaded
+├── crates/                               ← Rust workspace: Frugal Core native runtime
+│   ├── frugal-storage/                   ← SQLite data plane (schema shared with Python runtime)
+│   ├── frugal-policy/                    ← profiles + budgets (config.json)
+│   ├── frugal-telemetry/                 ← event writers + semantic checkpoints
+│   ├── frugal-hooks/                     ← hook ingestion, duplicate fingerprinting (fail-open)
+│   ├── frugal-providers/                 ← provider registry + conflict resolver
+│   ├── frugal-core/                      ← economics aggregation, health score
+│   ├── frugal-mcp/                       ← MCP server: 11 frugal_* tools over stdio
+│   ├── frugal-tui/                       ← Ratatui dashboard (6 screens, live refresh)
+│   └── frugal-cli/                       ← the `frugal` binary
 └── docs/
     └── Frugal_Tokens_PRD.md              ← the full enterprise PRD this skill distills
 ```
