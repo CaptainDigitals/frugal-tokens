@@ -10,7 +10,7 @@
 
 [![Skill](https://img.shields.io/badge/Claude_Code-Skill-d97757?style=flat-square)](SKILL.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f?style=flat-square)](LICENSE)
-[![PRD](https://img.shields.io/badge/Docs-Full_PRD-4a7bd0?style=flat-square)](docs/Frugal_Tokens_PRD.md)
+[![Overview](https://img.shields.io/badge/Docs-Product_Overview-4a7bd0?style=flat-square)](docs/OVERVIEW.md)
 
 </div>
 
@@ -87,7 +87,7 @@ frugal-tokens/
 │   ├── frugal-tui/                       ← Ratatui dashboard (6 screens, live refresh)
 │   └── frugal-cli/                       ← the `frugal` binary
 └── docs/
-    └── Frugal_Tokens_PRD.md              ← the full enterprise PRD this skill distills
+    └── OVERVIEW.md                       ← product overview
 ```
 
 Only the compact `SKILL.md` occupies context by default. Reference files load
@@ -102,7 +102,7 @@ The full experience: the skill **plus** local telemetry, a cost/context status
 line, duplicate-read detection, budgets, auto-checkpoints before compaction,
 a terminal dashboard, and `/frugal-tokens:*` commands. Local-first — no
 account, no cloud. See [claude-plugin/README.md](claude-plugin/README.md) and
-the [Community Edition PRD](docs/Frugal_Community_Edition_PRD.md).
+the [Product Overview](docs/OVERVIEW.md).
 
 ```text
 /plugin marketplace add CaptainDigitals/frugal-tokens
@@ -204,7 +204,7 @@ ASSESSMENT
   quality loss        0.0%
 ```
 
-The ROI report applies the acceptance rule from the PRD: an optimization stays
+The ROI report applies a strict acceptance rule: an optimization stays
 only if cost improves ≥ 10% **and** retries increase ≤ 5% **and** quality loss
 stays ≤ 3%. Providers that don't earn their place get flagged for removal.
 
@@ -247,14 +247,10 @@ with rollback on any failure. Nothing is installed without your approval.
 
 ## What This Is (and Isn't)
 
-This repository is the **skill distillation** of the full
-[Frugal Tokens Enterprise PRD](docs/Frugal_Tokens_PRD.md) — an adaptive token &
-context optimization platform (context intelligence engine, model economics
-router, quality gates, FinOps dashboard, provider marketplace).
-
-The skill captures everything from that design that Claude Code can enforce
-**today, behaviorally, with zero infrastructure**. The PRD documents the full
-platform vision for readers who want the roadmap.
+This repository is the open Community Edition of the Frugal Tokens platform —
+a behavioral skill, a plugin with local telemetry, and a native runtime. The
+[Product Overview](docs/OVERVIEW.md) describes what it delivers and the
+principles it runs on.
 
 It is **not** an output truncator, a proxy, or a guaranteed-percentage discount.
 It never deletes important context to save money.

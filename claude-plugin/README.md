@@ -1,8 +1,8 @@
 # Frugal Tokens — Claude Code Plugin (Community Edition)
 
 Local-first AI FinOps + Context Intelligence for Claude Code. Free, open
-source, no account, no cloud. Full product spec:
-[Community Edition PRD](../docs/Frugal_Community_Edition_PRD.md).
+source, no account, no cloud. See the
+[Product Overview](../docs/OVERVIEW.md).
 
 ## What the plugin adds
 
@@ -75,11 +75,11 @@ python bin/frugal.py safe         # observe-only, zero intervention
 
 ## Guarantees
 
-- **Fail-open** (PRD §85): every hook and status-line entry point swallows its
+- **Fail-open**: every hook and status-line entry point swallows its
   own errors — a Frugal failure can never block Claude Code.
-- **Local-only** (PRD §73): all telemetry lives in `~/.frugal/`. No accounts,
+- **Local-only**: all telemetry lives in `~/.frugal/`. No accounts,
   no uploads, no external services.
-- **No raw secrets** (PRD §75): the ledger stores tool names, fingerprints
+- **No raw secrets**: the ledger stores tool names, fingerprints
   (SHA-256), token estimates, and costs — not source code or credentials.
 - **Transparent**: `/frugal-tokens:why` explains every recorded observation.
 

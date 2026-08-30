@@ -7,3 +7,4 @@ Thumbs.db
 .ruff_cache/
 /target/
 
+private/
