@@ -1,0 +1,13 @@
+{
+  "name": "frugal-tokens",
+  "description": "AI FinOps + Context Intelligence for Claude Code — local-first cost visibility, duplicate-read detection, budgets, checkpoints, and a status line. Community Edition: free, no account, no cloud.",
+  "version": "0.1.0",
+  "author": {
+    "name": "CaptainDigitals",
+    "url": "https://github.com/CaptainDigitals/frugal-tokens"
+  },
+  "homepage": "https://github.com/CaptainDigitals/frugal-tokens",
+  "repository": "https://github.com/CaptainDigitals/frugal-tokens",
+  "license": "MIT",
+  "keywords": ["finops", "tokens", "cost", "context", "optimization", "telemetry"]
+}

@@ -86,6 +86,28 @@ context pressure pulls the checkpoint protocol.
 
 ## Install
 
+### Option A — Plugin (Community Edition, recommended)
+
+The full experience: the skill **plus** local telemetry, a cost/context status
+line, duplicate-read detection, budgets, auto-checkpoints before compaction,
+a terminal dashboard, and `/frugal-tokens:*` commands. Local-first — no
+account, no cloud. See [claude-plugin/README.md](claude-plugin/README.md) and
+the [Community Edition PRD](docs/Frugal_Community_Edition_PRD.md).
+
+```text
+/plugin marketplace add CaptainDigitals/frugal-tokens
+/plugin install frugal-tokens@frugal-tokens
+/frugal-tokens:setup
+```
+
+Starts in **SHADOW mode**: observe-only until you opt into more.
+
+```text
+◈ FRUGAL │ CTX 43% │ $1.42 │ dup 3 │ SHADOW ✓
+```
+
+### Option B — Skill only
+
 Clone into your Claude Code skills directory:
 
 ```bash
