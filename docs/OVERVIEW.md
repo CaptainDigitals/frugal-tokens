@@ -1,3 +1,7 @@
+<div align="center">
+<img src="../assets/Frugal_Tokenomics_Logo.png" alt="Frugal Tokenomics" width="360" />
+</div>
+
 # Frugal Tokenomics — Product Overview
 
 **AI FinOps + Context Intelligence for Claude Code.**

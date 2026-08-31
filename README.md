@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/frugal_tokens_circuit_flow_animated.gif" alt="Frugal Tokenomics" width="480" />
+<img src="assets/frugal_tokenomics_circuit_flow_animated.gif" alt="Frugal Tokenomics" width="480" />
 
 # Frugal Tokenomics
 
@@ -34,7 +34,7 @@ succeed is never dropped — frugality that degrades quality is waste, not savin
 ## What It Delivers
 
 <div align="center">
-<img src="assets/What_FT_Delivers.png" alt="What Frugal Tokenomics delivers" width="820" />
+<img src="assets/Frugal_Tokenomics_What_It_Delivers.png" alt="What Frugal Tokenomics delivers" width="820" />
 </div>
 
 The skill installs seven always-on disciplines:
@@ -52,7 +52,7 @@ The skill installs seven always-on disciplines:
 ## How It Works
 
 <div align="center">
-<img src="assets/How_it_Works.png" alt="How Frugal Tokenomics works" width="820" />
+<img src="assets/Frugal_Tokenomics_How_It_Works.png" alt="How Frugal Tokenomics works" width="820" />
 </div>
 
 The skill uses **progressive disclosure** — it practices what it preaches:
