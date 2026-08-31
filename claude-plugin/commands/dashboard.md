@@ -1,5 +1,5 @@
 ---
-description: Show the Frugal Tokens terminal dashboard (today's spend, sessions, top tools, activity)
+description: Show the Frugal Tokenomics terminal dashboard (today's spend, sessions, top tools, activity)
 ---
 
 Run `python "${CLAUDE_PLUGIN_ROOT}/bin/frugal.py" dashboard` and present the

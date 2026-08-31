@@ -1,16 +1,16 @@
 {
-  "name": "frugal-tokens",
+  "name": "frugal-tokenomics",
   "owner": {
     "name": "CaptainDigitals",
     "url": "https://github.com/CaptainDigitals"
   },
   "metadata": {
-    "description": "Frugal Tokens — AI FinOps + Context Intelligence for Claude Code",
+    "description": "Frugal Tokenomics — AI FinOps + Context Intelligence for Claude Code",
     "version": "0.1.0"
   },
   "plugins": [
     {
-      "name": "frugal-tokens",
+      "name": "frugal-tokenomics",
       "source": "./claude-plugin",
       "description": "Local-first Claude Code cost visibility, duplicate-read detection, budgets, semantic checkpoints, and a native-feeling status line. Community Edition: free, open source, no account required."
     }

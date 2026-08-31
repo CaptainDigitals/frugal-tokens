@@ -1,8 +1,8 @@
 ---
-description: First-run setup for Frugal Tokens — verify runtime, wire the status line, choose profile and budgets
+description: First-run setup for Frugal Tokenomics — verify runtime, wire the status line, choose profile and budgets
 ---
 
-Guide the user through Frugal Tokens Community Edition setup. Frugal starts in
+Guide the user through Frugal Tokenomics Community Edition setup. Frugal starts in
 SHADOW mode: observe-only, no workflow changes. Never modify configuration
 without showing the change and getting approval.
 

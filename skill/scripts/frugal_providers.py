@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frugal Tokens provider framework (PRD sections 16-17, 89).
+"""Frugal Tokenomics provider framework (PRD sections 16-17, 89).
 
 Registry of optimization providers with capabilities, trust classes, and
 installation detection. Stdlib only — no dependencies.

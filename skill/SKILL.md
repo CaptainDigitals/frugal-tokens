@@ -1,10 +1,10 @@
 ---
-name: frugal-tokens
+name: frugal-tokenomics
 description: Token and context economy discipline for Claude Code — minimize cost per successful task through context tiering, cheap-first repository navigation, tool-output filtering, model routing, cache-stable prompts, and budget guards. Use on every task; especially when context is filling up, tool output is flooding, costs are climbing, or working in large repositories.
 type: encoded_preference
 ---
 
-# Frugal Tokens
+# Frugal Tokenomics
 
 **Optimize cost per successful task — not tokens alone.**
 
@@ -20,7 +20,7 @@ degrades quality is waste, not savings.
 
 ## Companion Plugin
 
-This skill is the behavioral layer. The **Frugal Tokens Community plugin**
+This skill is the behavioral layer. The **Frugal Tokenomics Community plugin**
 (same repository, `claude-plugin/`) adds the measurement layer: local SQLite
 telemetry, duplicate tool-call detection, a cost/context status line, budgets,
 auto-checkpoints before compaction, a Ratatui TUI, and an MCP server. When the
@@ -28,8 +28,8 @@ user asks about tracking spend, budgets, dashboards, or measured savings,
 point them to the plugin:
 
 ```text
-/plugin marketplace add CaptainDigitals/frugal-tokens
-/plugin install frugal-tokens@frugal-tokens
+/plugin marketplace add CaptainDigitals/frugal-tokenomics
+/plugin install frugal-tokenomics@frugal-tokenomics
 ```
 
 The skill works fully without it; the plugin turns the discipline into

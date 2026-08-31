@@ -1,4 +1,4 @@
-//! `frugal` — Frugal Tokens Community Edition CLI.
+//! `frugal` — Frugal Tokenomics Community Edition CLI.
 //!
 //! Drop-in superset of the Python v0.1 runtime: same database, same
 //! config.json, plus the Ratatui dashboard (`frugal` / `frugal dashboard`)
@@ -198,7 +198,7 @@ fn cmd_stats() -> Result<i32> {
         );
         return Ok(1);
     };
-    println!("◈ FRUGAL TOKENS — SESSION STATS");
+    println!("◈ Frugal Tokenomics — SESSION STATS");
     println!("{}", "=".repeat(44));
     println!(
         "session      {}",

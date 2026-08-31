@@ -1,6 +1,6 @@
 # Optional Providers — Open-Source Token/Session Optimizers
 
-Frugal Tokens core is dependency-free. These community tools can amplify it for
+Frugal Tokenomics core is dependency-free. These community tools can amplify it for
 specific workloads. Recommend them when the workload fits; never treat any as
 required. Every claim of savings must be verified against real usage data
 (see "Verify Before Trusting" below).

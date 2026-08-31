@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frugal Tokens Community Edition — local runtime (v0.1 reference implementation).
+"""Frugal Tokenomics Community Edition — local runtime (v0.1 reference implementation).
 
 Local-first AI FinOps for Claude Code: SQLite telemetry, cost/context
 visibility, duplicate tool-call detection, budgets, semantic checkpoints,
@@ -337,7 +337,7 @@ def cmd_stats() -> int:
     cfg = load_config()
 
     model, cost, ctx, started, updated, added, removed = session
-    print("◈ FRUGAL TOKENS — SESSION STATS")
+    print("◈ Frugal Tokenomics — SESSION STATS")
     print("=" * 44)
     print(f"session      {session_id[:20]}")
     print(f"model        {model or '-'}")
@@ -398,7 +398,7 @@ def cmd_dashboard() -> int:
         print(left + "─" * width + right)
 
     rule("╭", "╮")
-    row(f"◈ FRUGAL TOKENS — Community Edition   profile: {cfg['profile']}")
+    row(f"◈ Frugal Tokenomics — Community Edition   profile: {cfg['profile']}")
     rule()
     row(f"TODAY   spend ${today_cost:.2f}   duplicate calls: {today_dups[0]}"
         f"   dup tokens: {today_dups[1]:,}")

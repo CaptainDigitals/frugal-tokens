@@ -130,7 +130,7 @@ pub fn handle_message(msg: &Value) -> Option<Value> {
             json!({
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "frugal-tokens", "version": env!("CARGO_PKG_VERSION")},
+                "serverInfo": {"name": "frugal-tokenomics", "version": env!("CARGO_PKG_VERSION")},
             }),
         ),
         "tools/list" => response(id, json!({"tools": tool_definitions()})),
@@ -186,7 +186,7 @@ mod tests {
     fn initialize_and_list_tools() {
         let init = json!({"jsonrpc":"2.0","id":1,"method":"initialize","params":{}});
         let reply = handle_message(&init).unwrap();
-        assert_eq!(reply["result"]["serverInfo"]["name"], "frugal-tokens");
+        assert_eq!(reply["result"]["serverInfo"]["name"], "frugal-tokenomics");
 
         let list = json!({"jsonrpc":"2.0","id":2,"method":"tools/list"});
         let reply = handle_message(&list).unwrap();

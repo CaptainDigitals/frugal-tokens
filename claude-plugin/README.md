@@ -1,4 +1,4 @@
-# Frugal Tokens — Claude Code Plugin (Community Edition)
+# Frugal Tokenomics — Claude Code Plugin (Community Edition)
 
 Local-first AI FinOps + Context Intelligence for Claude Code. Free, open
 source, no account, no cloud. See the
@@ -10,7 +10,7 @@ source, no account, no cloud. See the
 |---|---|
 | **Hooks** | Every tool call is fingerprinted into a local SQLite ledger (`~/.frugal/frugal.db`); identical repeated calls are flagged as duplicates; `PreCompact` writes an automatic semantic checkpoint before Claude compacts |
 | **Status line** | `◈ FRUGAL │ CTX 43% │ $1.42 │ dup 3 │ SHADOW ✓` — context %, session cost, duplicate count, profile, budget health (`✓`/`!`/`X`) |
-| **Commands** | `/frugal-tokens:setup`, `:stats`, `:dashboard`, `:doctor`, `:checkpoint`, `:budget`, `:report`, `:why`, `:safe` |
+| **Commands** | `/frugal-tokenomics:setup`, `:stats`, `:dashboard`, `:doctor`, `:checkpoint`, `:budget`, `:report`, `:why`, `:safe` |
 | **Companion skill** | The behavioral discipline (context tiering, cheap-first navigation, output firewall, model routing) lives separately in [`../skill/`](../skill) — install it alongside the plugin for the full experience |
 | **Runtime** | Two interchangeable implementations sharing one ledger: `bin/frugal.py` (stdlib Python, zero build) and the **Rust core** (`frugal` binary from `crates/` — adds the Ratatui TUI and the MCP server) |
 | **MCP server** | `frugal mcp` — 11 tools (`frugal_get_stats`, `frugal_get_cost`, `frugal_get_waste`, `frugal_checkpoint`, `frugal_set_budget`, ...) giving Claude structured access to Frugal Core |
@@ -19,14 +19,14 @@ source, no account, no cloud. See the
 ## Install
 
 ```bash
-/plugin marketplace add CaptainDigitals/frugal-tokens
-/plugin install frugal-tokens@frugal-tokens
+/plugin marketplace add CaptainDigitals/frugal-tokenomics
+/plugin install frugal-tokenomics@frugal-tokenomics
 ```
 
 Then inside Claude Code:
 
 ```text
-/frugal-tokens:setup
+/frugal-tokenomics:setup
 ```
 
 Setup verifies the runtime, offers to wire the status line, and lets you pick
@@ -36,7 +36,7 @@ measures and reports; it changes nothing until you opt in.
 ## Rust Core (TUI + MCP)
 
 Build the native runtime from the repo root (or grab a
-[release binary](https://github.com/CaptainDigitals/frugal-tokens/releases)):
+[release binary](https://github.com/CaptainDigitals/frugal-tokenomics/releases)):
 
 ```bash
 cargo build --release        # -> target/release/frugal
@@ -81,7 +81,7 @@ python bin/frugal.py safe         # observe-only, zero intervention
   no uploads, no external services.
 - **No raw secrets**: the ledger stores tool names, fingerprints
   (SHA-256), token estimates, and costs — not source code or credentials.
-- **Transparent**: `/frugal-tokens:why` explains every recorded observation.
+- **Transparent**: `/frugal-tokenomics:why` explains every recorded observation.
 
 ## Data
 

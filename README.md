@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/frugal_tokens_circuit_flow_animated.gif" alt="Frugal Tokens" width="480" />
+<img src="assets/frugal_tokens_circuit_flow_animated.gif" alt="Frugal Tokenomics" width="480" />
 
-# Frugal Tokens
+# Frugal Tokenomics
 
 **Token & context economy discipline for Claude Code.**
 
@@ -22,7 +22,7 @@ Most token "optimizers" chase raw token reduction. That metric is broken: a
 compression that saves 50% of tokens but causes one extra debugging cycle costs
 *more* than the unoptimized workflow.
 
-Frugal Tokens optimizes a single objective instead:
+Frugal Tokenomics optimizes a single objective instead:
 
 ```text
 CST  =  Total AI Cost / Successfully Completed Tasks      →  minimize
@@ -34,7 +34,7 @@ succeed is never dropped — frugality that degrades quality is waste, not savin
 ## What It Delivers
 
 <div align="center">
-<img src="assets/What_FT_Delivers.png" alt="What Frugal Tokens delivers" width="820" />
+<img src="assets/What_FT_Delivers.png" alt="What Frugal Tokenomics delivers" width="820" />
 </div>
 
 The skill installs seven always-on disciplines:
@@ -52,7 +52,7 @@ The skill installs seven always-on disciplines:
 ## How It Works
 
 <div align="center">
-<img src="assets/How_it_Works.png" alt="How Frugal Tokens works" width="820" />
+<img src="assets/How_it_Works.png" alt="How Frugal Tokenomics works" width="820" />
 </div>
 
 The skill uses **progressive disclosure** — it practices what it preaches:
@@ -62,7 +62,7 @@ behavioral discipline) and the **plugin** (the measurement runtime). The
 skill points to the plugin for telemetry; each installs independently.
 
 ```text
-frugal-tokens/
+frugal-tokenomics/
 ├── skill/                                ← THE SKILL — behavioral layer
 │   ├── SKILL.md                          ← always loaded: the 7 disciplines (compact)
 │   ├── references/                       ← loaded only when the situation demands it
@@ -77,7 +77,7 @@ frugal-tokens/
 │   ├── scripts/                          ← stdlib-only Python: providers, conflicts, ROI, setup
 │   └── providers/                        ← bundled provider manifests (e.g. DeepWiki)
 ├── claude-plugin/                        ← THE PLUGIN — measurement layer
-│   ├── commands/                         ← /frugal-tokens:* commands
+│   ├── commands/                         ← /frugal-tokenomics:* commands
 │   ├── hooks/                            ← telemetry + PreCompact auto-checkpoint
 │   ├── bin/frugal.py                     ← Python reference runtime
 │   └── .mcp.json                         ← registers the `frugal mcp` server
@@ -108,14 +108,14 @@ discipline (skill) and measurement (plugin).
 
 Local telemetry, a cost/context status line, duplicate-read detection,
 budgets, auto-checkpoints before compaction, a terminal dashboard, and
-`/frugal-tokens:*` commands. Local-first — no account, no cloud. See
+`/frugal-tokenomics:*` commands. Local-first — no account, no cloud. See
 [claude-plugin/README.md](claude-plugin/README.md) and the
 [Product Overview](docs/OVERVIEW.md).
 
 ```text
-/plugin marketplace add CaptainDigitals/frugal-tokens
-/plugin install frugal-tokens@frugal-tokens
-/frugal-tokens:setup
+/plugin marketplace add CaptainDigitals/frugal-tokenomics
+/plugin install frugal-tokenomics@frugal-tokenomics
+/frugal-tokenomics:setup
 ```
 
 Starts in **SHADOW mode**: observe-only until you opt into more.
@@ -129,16 +129,16 @@ Starts in **SHADOW mode**: observe-only until you opt into more.
 Copy the `skill/` directory into your Claude Code skills directory:
 
 ```bash
-git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokens.git /tmp/frugal-tokens && cp -r /tmp/frugal-tokens/skill ~/.claude/skills/frugal-tokens && rm -rf /tmp/frugal-tokens
+git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokenomics.git /tmp/frugal-tokenomics && cp -r /tmp/frugal-tokenomics/skill ~/.claude/skills/frugal-tokenomics && rm -rf /tmp/frugal-tokenomics
 ```
 
 Windows (PowerShell):
 
 ```powershell
-git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokens.git "$env:TEMP\frugal-tokens"; Copy-Item -Recurse "$env:TEMP\frugal-tokens\skill" "$env:USERPROFILE\.claude\skills\frugal-tokens"; Remove-Item -Recurse -Force "$env:TEMP\frugal-tokens"
+git clone --depth 1 https://github.com/CaptainDigitals/frugal-tokenomics.git "$env:TEMP\frugal-tokenomics"; Copy-Item -Recurse "$env:TEMP\frugal-tokenomics\skill" "$env:USERPROFILE\.claude\skills\frugal-tokenomics"; Remove-Item -Recurse -Force "$env:TEMP\frugal-tokenomics"
 ```
 
-For a single project, copy to `.claude/skills/frugal-tokens` instead. The
+For a single project, copy to `.claude/skills/frugal-tokenomics` instead. The
 skill is discovered automatically and applies to every session.
 
 ## How To Use
@@ -156,7 +156,7 @@ You can also lean on it explicitly:
 
 ```text
 "Estimate the token cost of loading src/ before you read anything."
-"We're at 70% context — apply the frugal-tokens pressure protocol."
+"We're at 70% context — apply the frugal-tokenomics pressure protocol."
 "Checkpoint the session state before compacting."
 ```
 
@@ -243,14 +243,14 @@ measurement all pick it up automatically — recommendation intelligence is
 keyed by capability (`navigation.graph`, `compression.document`, …), not by
 hardcoded provider ids.
 
-Ask Claude to *"set up frugal tokens providers"* and it follows the guided,
+Ask Claude to *"set up Frugal Tokenomics providers"* and it follows the guided,
 transactional flow in [skill/references/setup-flow.md](skill/references/setup-flow.md):
 assess → baseline → recommend → backup → apply one at a time → verify ROI,
 with rollback on any failure. Nothing is installed without your approval.
 
 ## What This Is (and Isn't)
 
-This repository is the open Community Edition of the Frugal Tokens platform —
+This repository is the open Community Edition of the Frugal Tokenomics platform —
 a behavioral skill, a plugin with local telemetry, and a native runtime. The
 [Product Overview](docs/OVERVIEW.md) describes what it delivers and the
 principles it runs on.

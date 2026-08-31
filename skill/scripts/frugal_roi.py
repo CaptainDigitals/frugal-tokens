@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frugal Tokens ROI measurement engine (PRD sections 3, 43-44, 96).
+"""Frugal Tokenomics ROI measurement engine (PRD sections 3, 43-44, 96).
 
 Records per-task economics into a local JSONL ledger and computes:
 
@@ -160,7 +160,7 @@ def cmd_report(args) -> int:
         print(json.dumps(result, indent=2))
         return 0
 
-    print("FRUGAL TOKENS — ROI REPORT")
+    print("Frugal Tokenomics — ROI REPORT")
     print("=" * 42)
     for label, s in (("BASELINE", baseline), ("OPTIMIZED", optimized)):
         print(f"\n{label}  ({s.get('tasks', 0)} tasks)")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frugal Tokens provider conflict solver (PRD section 45).
+"""Frugal Tokenomics provider conflict solver (PRD section 45).
 
 Given a proposed set of active providers, validates the capability rules and
 resolves conflicts deterministically:

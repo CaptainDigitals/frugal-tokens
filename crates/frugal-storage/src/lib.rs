@@ -1,4 +1,4 @@
-//! Frugal Tokens local data plane: SQLite at `~/.frugal/frugal.db`.
+//! Frugal Tokenomics local data plane: SQLite at `~/.frugal/frugal.db`.
 //!
 //! The schema is identical to the Python v0.1 reference runtime
 //! (`claude-plugin/bin/frugal.py`) so both runtimes share one ledger.

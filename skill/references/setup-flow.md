@@ -1,6 +1,6 @@
 # Guided Provider Setup Flow
 
-Follow this flow when the user asks to "set up frugal tokens", "run frugal
+Follow this flow when the user asks to "set up Frugal Tokenomics", "run frugal
 setup", "install the recommended optimizers", or similar. It is the skill-level
 implementation of the PRD's installation journey: assess → baseline → recommend
 → transactional apply → verify, with rollback at every step.

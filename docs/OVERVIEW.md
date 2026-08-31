@@ -1,4 +1,4 @@
-# Frugal Tokens — Product Overview
+# Frugal Tokenomics — Product Overview
 
 **AI FinOps + Context Intelligence for Claude Code.**
 Free, open source, local-first. No account, no cloud, no telemetry backend.
@@ -7,7 +7,7 @@ Free, open source, local-first. No account, no cloud, no telemetry backend.
 
 ## What It Is
 
-Frugal Tokens is an economics layer around Claude Code. It makes AI coding
+Frugal Tokenomics is an economics layer around Claude Code. It makes AI coding
 spend visible, prevents common sources of context waste, and measures its own
 impact against your real usage — locally, on your machine.
 
@@ -77,6 +77,6 @@ Claude Code ── plugin (skills · hooks · MCP · status line)
 
 ## Honest Claims
 
-Savings depend on workload. Frugal Tokens measures rather than promises —
+Savings depend on workload. Frugal Tokenomics measures rather than promises —
 its reports distinguish measured, estimated, and projected savings, and its
 quality guard exists precisely so cost cuts never silently degrade outcomes.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frugal Tokens adaptive provider lifecycle manager (PRD sections 46, 55-60).
+"""Frugal Tokenomics adaptive provider lifecycle manager (PRD sections 46, 55-60).
 
 Profiles the current repository, intelligently recommends which third-party
 optimizers to install (Graphify, token-compact, token-saver, ...), and manages

@@ -158,7 +158,7 @@ fn draw(frame: &mut Frame, app: &App) {
         .split(area);
 
     let title = Line::from(vec![
-        Span::styled("◈ FRUGAL TOKENS ", Style::default().fg(GOLD).bold()),
+        Span::styled("◈ Frugal Tokenomics ", Style::default().fg(GOLD).bold()),
         Span::styled("Community Edition", Style::default().fg(CYAN)),
         Span::raw("  "),
         Span::styled(
