@@ -344,7 +344,7 @@ checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
 
 [[package]]
 name = "frugal-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "clap",
@@ -361,7 +361,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-core"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "frugal-policy",
@@ -373,7 +373,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-hooks"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "frugal-storage",
@@ -384,7 +384,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-mcp"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "frugal-core",
@@ -397,7 +397,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-policy"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "frugal-storage",
@@ -407,7 +407,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-providers"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "dirs",
@@ -418,7 +418,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-storage"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -428,7 +428,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-telemetry"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "frugal-storage",
@@ -437,7 +437,7 @@ dependencies = [
 
 [[package]]
 name = "frugal-tui"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "crossterm",
